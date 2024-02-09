@@ -1,0 +1,134 @@
+1)
+
+USE [PoliziaMunicipale]
+GO
+
+SELECT COUNT(*) as TotaleVerbale
+  FROM [dbo].[Verbale]
+
+GO
+
+2)
+
+USE [PoliziaMunicipale]
+GO
+
+SELECT v.IDAnagrafica, a.Cognome, a.Nome, COUNT(*) as TotaleVerbali
+  FROM [dbo].[Verbale] as v
+  join dbo.Anagrafica as a on a.IDAnagrafica = v.IDAnagrafica
+  GROUP BY v.IDAnagrafica, a.Cognome, a.Nome
+GO
+
+
+3)
+
+USE [PoliziaMunicipale]
+GO
+
+SELECT v.IDViolazione, Violazione.Descrizione, COUNT(*) as TotaleVerbali
+  FROM [dbo].[Verbale] as v
+  join dbo.Violazione as violazione on violazione.IDViolazione = v.IDViolazione
+  GROUP BY v.IDViolazione, violazione.Descrizione
+GO
+
+4)
+
+USE [PoliziaMunicipale]
+GO
+
+SELECT v.IDAnagrafica, a.Cognome, a.Nome, SUM(v.DecurtamentoPunti) as TotalePuntiDecurtati
+  FROM [dbo].[Verbale] as v
+  join dbo.Anagrafica as a on a.IDAnagrafica = v.IDAnagrafica
+  GROUP BY v.IDAnagrafica, a.Cognome, a.Nome
+GO
+
+5)
+
+USE [PoliziaMunicipale]
+GO
+
+SELECT a.Cognome, a.Nome, v.DataViolazione, v.IndirizzoViolazione, v.Importo, v.DecurtamentoPunti
+  FROM [dbo].[Verbale] as v
+    join dbo.Anagrafica as a on a.IDAnagrafica = v.IDAnagrafica
+	WHERE a.Cittá LIKE '%Palermo%'
+GO
+
+6)
+
+USE [PoliziaMunicipale]
+GO
+
+SELECT a.Cognome, a.Nome,  a.Indirizzo, v.DataViolazione, v.Importo, v.DecurtamentoPunti
+  FROM [dbo].[Verbale] as v
+    join dbo.Anagrafica as a on a.IDAnagrafica = v.IDAnagrafica
+	WHERE v.DataViolazione BETWEEN '2009-02-01' and '2009-07-31' 
+GO
+
+7)
+
+USE [PoliziaMunicipale]
+GO
+
+SELECT v.IDAnagrafica, a.Cognome, a.Nome, SUM(v.Importo) as TotaleImporto
+  FROM [dbo].[Verbale] as v
+  join dbo.Anagrafica as a on a.IDAnagrafica = v.IDAnagrafica
+  GROUP BY v.IDAnagrafica, a.Cognome, a.Nome
+GO
+
+8)
+
+USE [PoliziaMunicipale]
+GO
+
+SELECT *
+  FROM [dbo].[Anagrafica]
+  WHERE Cittá LIKE '%Palermo%'
+GO
+
+
+9)
+
+USE [PoliziaMunicipale]
+GO
+
+SELECT DataViolazione, Importo, DecurtamentoPunti
+  FROM [dbo].[Verbale] 
+WHERE DataViolazione LIKE  '2024-01-05' 
+GO
+
+10)
+
+USE [PoliziaMunicipale]
+GO
+
+SELECT COUNT(*), Nominativo_Agente
+  FROM [dbo].[Verbale]
+  GROUP BY Nominativo_Agente
+
+GO
+
+11)
+
+USE [PoliziaMunicipale]
+GO
+
+SELECT a.Cognome, a.Nome,  v.IndirizzoViolazione, v.DataViolazione, v.Importo, v.DecurtamentoPunti
+  FROM [dbo].[Verbale] as v
+    join dbo.Anagrafica as a on a.IDAnagrafica = v.IDAnagrafica
+	WHERE v.DecurtamentoPunti > 5
+GO
+
+12)
+USE [PoliziaMunicipale]
+GO
+
+SELECT a.Cognome, a.Nome, v.IndirizzoViolazione, v.DataViolazione, v.Importo, v.DecurtamentoPunti
+  FROM [dbo].[Verbale] as v
+    join dbo.Anagrafica as a on a.IDAnagrafica = v.IDAnagrafica
+	WHERE v.Importo > 400
+GO
+
+
+
+
+

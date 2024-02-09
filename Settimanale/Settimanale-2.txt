@@ -1,0 +1,108 @@
+1)-------------------------------------------------------------------------------------------------------------------------
+
+
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE GetVerbaliAnno
+
+    @Anno int
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT  *
+  FROM [dbo].[Verbale] as v
+  join dbo.Anagrafica as a on a.IDAnagrafica = v.IDAnagrafica 
+  where year(v.DataViolazione) like @Anno
+END
+GO
+
+
+2)-------------------------------------------------------------------------------------------------------------------------
+
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE GetPuntiDecurtati	-- Add the parameters for the stored procedure here
+	@DataImput date
+AS
+BEGIN
+	SET NOCOUNT ON;
+SELECT DataViolazione, SUM(DecurtamentoPunti) AS PuntiDecurtati
+  FROM [dbo].[Verbale] as v
+  GROUP BY DataViolazione
+  HAVING v.DataViolazione = @DataImput
+END
+GO
+
+
+3)--------------------------------------------------------------------------------------------------------------------------------------
+
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE DeleteVerbale 
+	-- Add the parameters for the stored procedure here
+@IDVerbali int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	DELETE FROM [dbo].[Verbale]
+	WHERE IDVerbale = @IDVerbali
+
+END
+GO
+
